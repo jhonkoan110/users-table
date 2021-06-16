@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.container .col1 {
+    width: 30%;
+}
+
+.container .col2 {
+    position: relative;
+    width: 35%;
+}
+
+.container .col3 {
+    width: 25%;
+}
+
+.container .col4 {
+    width: 10%;
+}
+
+.posts {
+    position: absolute;
+    top: -37px;
+    left: 40px;
+    background-color: #ececec;
+    border-radius: 6px;
+    width: 240px;
+    padding: 0.5rem;
+}
+
+.posts::after {
+    content: '';
+    position: absolute;
+    top: 70%;
+    left: 35%;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #ececec;
+}

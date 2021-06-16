@@ -1,0 +1,43 @@
+import { API_GET_USERS, API_GET_USER_POSTS } from '../../utils/api';
+import {
+    fetchPostsAmount,
+    fetchPostsAmountError,
+    fetchPostsAmountSuccess,
+    fetchUsers,
+    fetchUsersError,
+    fetchUsersSuccess,
+} from './actionCreators';
+
+// Загрузка пользователей.
+export const getUsers = (page) => (dispatch) => {
+    dispatch(fetchUsers());
+
+    fetch(API_GET_USERS(page))
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Во время загрузки произошла ошибка.');
+            }
+
+            return response;
+        })
+        .then((response) => response.json())
+        .then((users) => dispatch(fetchUsersSuccess(users.data)))
+        .catch((error) => dispatch(fetchUsersError(error)));
+};
+
+// Загрузка кол-ва постов.
+export const getPostsAmount = (id) => (dispatch) => {
+    dispatch(fetchPostsAmount());
+
+    fetch(API_GET_USER_POSTS(id))
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Ошибка');
+            }
+
+            return response;
+        })
+        .then((response) => response.json())
+        .then((data) => dispatch(fetchPostsAmountSuccess(data.data.length)))
+        .catch((err) => dispatch(fetchPostsAmountError(err)));
+};

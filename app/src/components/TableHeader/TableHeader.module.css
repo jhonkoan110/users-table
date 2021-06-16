@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid #959191;
+}
+
+.container .col {
+    /* width: 25%; */
+    color: #959191;
+}
+
+.container .col1 {
+    width: 30%;
+}
+
+.container .col2 {
+    width: 35%;
+}
+
+.container .col3 {
+    width: 25%;
+}
+
+.container .col4 {
+    width: 10%;
+}
