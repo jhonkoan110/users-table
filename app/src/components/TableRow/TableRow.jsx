@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { cutStringLength } from '../../utils/cutStringLength';
 import { formatDate } from '../../utils/dateFormatter';
 import { EmailCol } from '../EmailCol/EmailCol';
 import styles from './TableRow.module.css';
@@ -6,8 +7,8 @@ import styles from './TableRow.module.css';
 export const TableRow = ({ user }) => {
     return (
         <div className={styles.container}>
-            <div className={[styles.col, styles.col1].join(' ')}>{user.name}</div>
-            <EmailCol id={user.id} email={user.email} />
+            <div className={[styles.col, styles.col1].join(' ')}>{cutStringLength(user.name, 35)}</div>
+            <EmailCol id={user.id} email={user.email} postsAmount={user.postsAmount} />
             <div className={[styles.col, styles.col3].join(' ')}>{formatDate(user.created_at)}</div>
         </div>
     );

@@ -1,40 +1,25 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { API_GET_USER_POSTS } from '../../utils/api';
 import styles from '../TableRow/TableRow.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsAmount } from '../../modules/UsersModule/asyncActions';
 
-export const EmailCol = ({ id, email }) => {
-    const [postsAmount, setPostsAmount] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+export const EmailCol = ({ id, email, postsAmount }) => {
+    const dispatch = useDispatch();
+    const isLoading = useSelector((state) => state.usersList.isAmountLoading);
+    const error = useSelector((state) => state.usersList.isAmountError);
+
     const [isShowingPosts, setIsShowingPosts] = useState(false);
 
     const showPostsAmount = () => {
         setIsShowingPosts(true);
-        setIsLoading(true);
-
-        fetch(API_GET_USER_POSTS(id))
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Ошибка');
-                }
-
-                return response;
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                setIsLoading(false);
-                setPostsAmount(data.data.length);
-            })
-            .catch((err) => {
-                setIsLoading(false);
-                setError(err);
-            });
+        if (!postsAmount && postsAmount !== 0) {
+            dispatch(getPostsAmount(id));
+        }
     };
 
     const closePostsAmount = () => {
         setIsShowingPosts(false);
-        setPostsAmount('');
     };
     return (
         <div className={[styles.col, styles.col2].join(' ')}>

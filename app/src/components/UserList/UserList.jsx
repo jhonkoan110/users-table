@@ -9,7 +9,7 @@ export const UserList = ({ users }) => {
         <div className={styles.container}>
             <TableHeader />
             <TableBody users={users} />
-            <TableFooter />
+            <TableFooter users={users} />
         </div>
     );
 };
@@ -28,6 +28,6 @@ UserList.propTypes = {
             status: PropTypes.string,
             created_at: PropTypes.string.isRequired,
             updated_at: PropTypes.string,
-        }),
+        })
     ),
 };

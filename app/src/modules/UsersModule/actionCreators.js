@@ -5,6 +5,9 @@ import {
     FETCH_USERS,
     FETCH_USERS_ERROR,
     FETCH_USERS_SUCCESS,
+    SET_PAGE,
+    SET_PAGINATION,
+    SET_POSTS_AMOUNT,
 } from './actions';
 
 export const fetchUsers = () => ({
@@ -33,4 +36,19 @@ export const fetchPostsAmountSuccess = (amount) => ({
 export const fetchPostsAmountError = (error) => ({
     type: FETCH_POSTS_AMOUNT_ERROR,
     payload: error,
+});
+
+export const setPostsAmount = (id, postsAmount) => ({
+    type: SET_POSTS_AMOUNT,
+    payload: {id, postsAmount},
+});
+
+export const setPage = (page) => ({
+    type: SET_PAGE,
+    payload: page,
+});
+
+export const setPagination = (pagination) => ({
+    type: SET_PAGINATION,
+    payload: pagination,
 });

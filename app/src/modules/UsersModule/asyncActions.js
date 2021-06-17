@@ -2,11 +2,15 @@ import { API_GET_USERS, API_GET_USER_POSTS } from '../../utils/api';
 import {
     fetchPostsAmount,
     fetchPostsAmountError,
-    fetchPostsAmountSuccess,
     fetchUsers,
     fetchUsersError,
     fetchUsersSuccess,
+    setPagination,
+    setPostsAmount,
 } from './actionCreators';
+
+// Хранит уникальные id запросов.
+const requestsSet = new Set();
 
 // Загрузка пользователей.
 export const getUsers = (page) => (dispatch) => {
@@ -21,12 +25,22 @@ export const getUsers = (page) => (dispatch) => {
             return response;
         })
         .then((response) => response.json())
-        .then((users) => dispatch(fetchUsersSuccess(users.data)))
+        .then((users) => {
+            dispatch(setPagination(users.meta.pagination));
+            dispatch(fetchUsersSuccess(users.data));
+        })
         .catch((error) => dispatch(fetchUsersError(error)));
 };
 
 // Загрузка кол-ва постов.
 export const getPostsAmount = (id) => (dispatch) => {
+    // Зашита от дублирования запросов.
+    if (requestsSet.has(id)) {
+        return;
+    }
+
+    requestsSet.add(id);
+
     dispatch(fetchPostsAmount());
 
     fetch(API_GET_USER_POSTS(id))
@@ -38,6 +52,6 @@ export const getPostsAmount = (id) => (dispatch) => {
             return response;
         })
         .then((response) => response.json())
-        .then((data) => dispatch(fetchPostsAmountSuccess(data.data.length)))
+        .then((data) => dispatch(setPostsAmount(id, data.data.length)))
         .catch((err) => dispatch(fetchPostsAmountError(err)));
 };

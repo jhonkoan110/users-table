@@ -8,15 +8,13 @@ export const UsersModule = () => {
     const users = useSelector((state) => state.usersList.users);
     const isLoading = useSelector((state) => state.usersList.isLoading);
     const error = useSelector((state) => state.usersList.error);
+    const page = useSelector((state) => state.usersList.page);
 
     useEffect(() => {
-        dispatch(getUsers(1));
-    }, [dispatch]);
+        dispatch(getUsers(page));
+    }, [dispatch, page]);
 
-    if (isLoading)
-        return (
-            <p style={{ margin: '1rem 0', textAlign: 'center' }}>Идёт загрузка пользователей...</p>
-        );
+    if (isLoading) return <p style={{ margin: '1rem 0', textAlign: 'center' }}>Идёт загрузка пользователей...</p>;
 
     if (error) return <p style={{ margin: '1rem 0', textAlign: 'center' }}>{error}</p>;
 
