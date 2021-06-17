@@ -14,6 +14,8 @@ const requestsSet = new Set();
 
 // Загрузка пользователей.
 export const getUsers = (page) => (dispatch) => {
+    requestsSet.clear();
+
     dispatch(fetchUsers());
 
     fetch(API_GET_USERS(page))
@@ -26,6 +28,7 @@ export const getUsers = (page) => (dispatch) => {
         })
         .then((response) => response.json())
         .then((users) => {
+            console.log(users);
             dispatch(setPagination(users.meta.pagination));
             dispatch(fetchUsersSuccess(users.data));
         })
@@ -52,6 +55,6 @@ export const getPostsAmount = (id) => (dispatch) => {
             return response;
         })
         .then((response) => response.json())
-        .then((data) => dispatch(setPostsAmount(id, data.data.length)))
+        .then((data) => dispatch(setPostsAmount(id, data.meta.pagination.total)))
         .catch((err) => dispatch(fetchPostsAmountError(err)));
 };

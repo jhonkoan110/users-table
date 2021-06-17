@@ -1,11 +1,12 @@
 import styles from './TableHeader.module.css';
+import cn from 'classnames';
 
 export const TableHeader = () => {
     return (
         <div className={styles.container}>
-            <div className={[styles.col, styles.col1].join(' ')}>Имя</div>
-            <div className={[styles.col, styles.col2].join(' ')}>Почта</div>
-            <div className={[styles.col, styles.col3].join(' ')}>Дата регистрации</div>
+            <div className={cn(styles.col, styles.col1)}>Имя</div>
+            <div className={cn(styles.col, styles.col2)}>Почта</div>
+            <div className={cn(styles.col, styles.col3)}>Дата регистрации</div>
         </div>
     );
 };

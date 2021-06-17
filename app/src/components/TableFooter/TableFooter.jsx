@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
+import Pagination from '@material-ui/lab/Pagination';
 import { setPage } from '../../modules/UsersModule/actionCreators';
-import { MyPagination } from '../Pagination';
 import styles from './TableFooter.module.css';
 
 export const TableFooter = () => {
@@ -15,7 +15,14 @@ export const TableFooter = () => {
     return (
         <div className={styles.container}>
             {pagination.pages && (
-                <MyPagination currentPage={currentPage} pages={pagination.pages} onChange={onChangePageHandler} />
+                <Pagination
+                    page={currentPage}
+                    count={pagination.pages}
+                    siblingCount={1}
+                    onChange={onChangePageHandler}
+                    boundaryCount={2}
+                    color="primary"
+                />
             )}
         </div>
     );

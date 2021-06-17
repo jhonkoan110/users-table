@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import { cutStringLength } from '../../utils/cutStringLength';
-import { formatDate } from '../../utils/dateFormatter';
 import { EmailCol } from '../EmailCol/EmailCol';
+import moment from 'moment';
 import styles from './TableRow.module.css';
+import cn from 'classnames';
 
 export const TableRow = ({ user }) => {
     return (
         <div className={styles.container}>
-            <div className={[styles.col, styles.col1].join(' ')}>{cutStringLength(user.name, 35)}</div>
+            <div className={cn(styles.col, styles.col1)}>{cutStringLength(user.name, 35)}</div>
+
             <EmailCol id={user.id} email={user.email} postsAmount={user.postsAmount} />
-            <div className={[styles.col, styles.col3].join(' ')}>{formatDate(user.created_at)}</div>
+
+            <div className={cn(styles.col, styles.col3)}>{moment(user.created_at).format('DD.MM.YYYY hh:mm:ss')}</div>
         </div>
     );
 };
