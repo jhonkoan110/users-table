@@ -28,7 +28,6 @@ export const getUsers = (page) => (dispatch) => {
         })
         .then((response) => response.json())
         .then((users) => {
-            console.log(users);
             dispatch(setPagination(users.meta.pagination));
             dispatch(fetchUsersSuccess(users.data));
         })
